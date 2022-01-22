@@ -1,0 +1,22 @@
+palette_20 = [
+  { name: "mediumslateblue", code: "#7b68ee" },
+  { name: "brown", code: "#a52a2a" },
+  { name: "seagreen", code: "#2e8b57" },
+  { name: "olive", code: "#808000" },
+  { name: "darkblue", code: "#00008b" },
+  { name: "red", code: "#ff0000" },
+  { name: "darkorange", code: "#ff8c00" },
+  { name: "gold", code: "#ffd700" },
+  { name: "springgreen", code: "#00ff7f" },
+  { name: "royalblue", code: "#4169e1" },
+  { name: "darkslateblue", code:  "#483d8b" },
+  { name: "blue", code: "#0000ff" },
+  { name: "greenyellow", code: "#adff2f" },
+  { name: "orchid", code: "#da70d6" },
+  { name: "fuchsia", code: "#ff00ff" },
+  { name: "khaki", code: "#f0e68c" },
+  { name: "deeppink", code: "#ff1493" },
+  { name: "lightsalmon", code: "#ffa07a" },
+  { name: "aquamarine", code: "#7fffd4" },
+  { name: "lightskyblue", code:  "#87cefa" }
+]
