@@ -1,265 +1,44 @@
 <head>
 	<!-- Load plotly.js into the DOM -->
 	<script src='https://cdn.plot.ly/plotly-2.8.3.min.js'></script>
+	<script src="/js/jquery-3.0.0.min.js"></script>
+	<script src="/js/wikk_ajax-min.js"></script>
+	<script src="/js/wikk_web_auth-min.js"></script>
+	<script src="/js/wikk_params.js"></script>
+	<script src="/js/wikk_site_angles.js"></script>
 
-  <script>
-	  var tower_data = {
-			"barn": {
-			distance: 937.361124000815,
-			min_dec: -0.88662422869654,
-			max_dec: 7.683508436667761,
-			max_angle: 204.6019098369993,
-			data: [
-			{ name: "wikk154", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,226.35177547398519], r: [0,937.361124000815] },
-			{ name: "wikk047", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,221.8019978841522], r: [0,874.386845106158] },
-			{ name: "wikk016", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,183.49803675264195], r: [0,846.9638974934312] },
-			{ name: "wikk022", type: "scatterpolar", mode: "lines", line: { color: "#808000" }, theta: [0,144.31549638055904], r: [0,85.91512685255346] },
-			{ name: "wikk148", type: "scatterpolar", mode: "lines", line: { color: "#00008b" }, theta: [0,84.91273615635234], r: [0,171.92984825775517] },
-			{ name: "wikk028", type: "scatterpolar", mode: "lines", line: { color: "#ff0000" }, theta: [0,94.29855301412967], r: [0,235.71755185112121] },
-			{ name: "wikk150", type: "scatterpolar", mode: "lines", line: { color: "#ff8c00" }, theta: [0,21.749865636985884], r: [0,764.0866248215868] },
-			{ name: "wikk192", type: "scatterpolar", mode: "lines", line: { color: "#ffd700" }, theta: [0,24.80328266819694], r: [0,794.4559401682824] },
-			{ name: "wikk178", type: "scatterpolar", mode: "lines", line: { color: "#00ff7f" }, theta: [0,128.4047407731351], r: [0,427.0470382753501] },
-			{ name: "wikk093", type: "scatterpolar", mode: "lines", line: { color: "#4169e1" }, theta: [0,36.57929146102791], r: [0,923.9391916692794] },
-			],
-			data2: [
-			{ name: "wikk154", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,176.52552546533215], r: [0,937.361124000815] },
-			{ name: "wikk047", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,174.897033670984], r: [0,874.386845106158] },
-			{ name: "wikk016", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,175.5327614457491], r: [0,846.9638974934312] },
-			{ name: "wikk022", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#808000" }, theta: [0,7.683508436667761], r: [0,85.91512685255346] },
-			{ name: "wikk148", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#00008b" }, theta: [0,0.8644407277210344], r: [0,171.92984825775517] },
-			{ name: "wikk028", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#ff0000" }, theta: [0,0.9442107841900955], r: [0,235.71755185112121] },
-			{ name: "wikk150", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#ff8c00" }, theta: [0,2.2805958884190907], r: [0,764.0866248215868] },
-			{ name: "wikk192", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#ffd700" }, theta: [0,1.7097701895270703], r: [0,794.4559401682824] },
-			{ name: "wikk178", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#00ff7f" }, theta: [0,4.5707583073935965], r: [0,427.0470382753501] },
-			{ name: "wikk093", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#4169e1" }, theta: [0,-0.88662422869654], r: [0,923.9391916692794] },
-			]
-			},
-			"beach": {
-			distance: 40.5002615013349,
-			min_dec: 1.2062612312860594,
-			max_dec: 1.948917592852995,
-			max_angle: 7.4717444612330155,
-			data: [
-			{ name: "wikk078", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,338.75322135732364], r: [0,40.5002615013349] },
-			{ name: "wikk055", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,331.2814768960906], r: [0,22.465993794501642] },
-			],
-			data2: [
-			{ name: "wikk078", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,178.79373876871395], r: [0,40.5002615013349] },
-			{ name: "wikk055", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,178.051082407147], r: [0,22.465993794501642] },
-			]
-			},
-			"beach2": {
-			distance: 407.657990180555,
-			min_dec: 0.6893549402412933,
-			max_dec: 1.3583391421867452,
-			max_angle: 19.024026132185384,
-			data: [
-			{ name: "wikk145", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,266.25234614500164], r: [0,407.657990180555] },
-			{ name: "wikk179", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,281.2620891608035], r: [0,234.14371522368015] },
-			{ name: "wikk117", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,285.276372277187], r: [0,203.96910798849768] },
-			],
-			data2: [
-			{ name: "wikk145", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,179.3106450597587], r: [0,407.657990180555] },
-			{ name: "wikk179", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,179.0359660197042], r: [0,234.14371522368015] },
-			{ name: "wikk117", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,178.64166085781326], r: [0,203.96910798849768] },
-			]
-			},
-			"lk1t": {
-			distance: 529.0647378689632,
-			min_dec: -1.6858165728579844,
-			max_dec: 9.00765427027337,
-			max_angle: 123.04009961480352,
-			data: [
-			{ name: "wikk151", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,263.6068177723062], r: [0,444.35590189822346] },
-			{ name: "wikk173", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,244.50527626378926], r: [0,330.24882045216265] },
-			{ name: "wikk175", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,240.30020659339934], r: [0,327.6700519109253] },
-			{ name: "wikk188", type: "scatterpolar", mode: "lines", line: { color: "#808000" }, theta: [0,203.88712344501542], r: [0,462.7938693340302] },
-			{ name: "wikk063", type: "scatterpolar", mode: "lines", line: { color: "#00008b" }, theta: [0,181.42406769971387], r: [0,364.48828138491564] },
-			{ name: "wikk092", type: "scatterpolar", mode: "lines", line: { color: "#ff0000" }, theta: [0,174.57809719339272], r: [0,323.7603951315554] },
-			{ name: "wikk165", type: "scatterpolar", mode: "lines", line: { color: "#ff8c00" }, theta: [0,174.09717184986152], r: [0,364.51254013777776] },
-			{ name: "wikk088", type: "scatterpolar", mode: "lines", line: { color: "#ffd700" }, theta: [0,157.82954901163285], r: [0,271.60426696801477] },
-			{ name: "wikk152", type: "scatterpolar", mode: "lines", line: { color: "#00ff7f" }, theta: [0,165.50391281947057], r: [0,424.38258173677593] },
-			{ name: "wikk167", type: "scatterpolar", mode: "lines", line: { color: "#4169e1" }, theta: [0,140.5667181575027], r: [0,529.0647378689632] },
-			],
-			data2: [
-			{ name: "wikk151", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,172.70448576948797], r: [0,444.35590189822346] },
-			{ name: "wikk173", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,170.99234572972662], r: [0,330.24882045216265] },
-			{ name: "wikk175", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,171.4519110828907], r: [0,327.6700519109253] },
-			{ name: "wikk188", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#808000" }, theta: [0,176.47707091052393], r: [0,462.7938693340302] },
-			{ name: "wikk063", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#00008b" }, theta: [0,178.6506783114809], r: [0,364.48828138491564] },
-			{ name: "wikk092", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#ff0000" }, theta: [0,5.340198598176401], r: [0,323.7603951315554] },
-			{ name: "wikk165", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#ff8c00" }, theta: [0,2.37089530134508], r: [0,364.51254013777776] },
-			{ name: "wikk088", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#ffd700" }, theta: [0,6.873348464109148], r: [0,271.60426696801477] },
-			{ name: "wikk152", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#00ff7f" }, theta: [0,0.01647152879623959], r: [0,424.38258173677593] },
-			{ name: "wikk167", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#4169e1" }, theta: [0,-1.6858165728579844], r: [0,529.0647378689632] },
-			]
-			},
-			"lk2": {
-			distance: 447.84338704365797,
-			min_dec: -3.1374726420528556,
-			max_dec: 9.407484369007202,
-			max_angle: 126.61628509946655,
-			data: [
-			{ name: "wikk050", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,290.86217057340053], r: [0,447.84338704365797] },
-			{ name: "wikk114", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,274.75043375820485], r: [0,402.9731373837369] },
-			{ name: "wikk005", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,281.0007935664537], r: [0,387.9232899461154] },
-			{ name: "wikk038", type: "scatterpolar", mode: "lines", line: { color: "#808000" }, theta: [0,276.70155274894586], r: [0,296.1138361696549] },
-			{ name: "wikk174", type: "scatterpolar", mode: "lines", line: { color: "#00008b" }, theta: [0,262.8741905810401], r: [0,261.87318204610847] },
-			{ name: "wikk111", type: "scatterpolar", mode: "lines", line: { color: "#ff0000" }, theta: [0,206.58357069298307], r: [0,192.9497200599242] },
-			{ name: "wikk112", type: "scatterpolar", mode: "lines", line: { color: "#ff8c00" }, theta: [0,182.92404389404535], r: [0,230.15623006366124] },
-			{ name: "wikk134", type: "scatterpolar", mode: "lines", line: { color: "#ffd700" }, theta: [0,164.24588547393398], r: [0,291.58668903341203] },
-			],
-			data2: [
-			{ name: "wikk050", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,174.17096310615125], r: [0,447.84338704365797] },
-			{ name: "wikk114", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,175.94836316851226], r: [0,402.9731373837369] },
-			{ name: "wikk005", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,172.44400828200324], r: [0,387.9232899461154] },
-			{ name: "wikk038", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#808000" }, theta: [0,170.5925156309928], r: [0,296.1138361696549] },
-			{ name: "wikk174", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#00008b" }, theta: [0,172.3058659465155], r: [0,261.87318204610847] },
-			{ name: "wikk111", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#ff0000" }, theta: [0,173.69499700192694], r: [0,192.9497200599242] },
-			{ name: "wikk112", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#ff8c00" }, theta: [0,181.45667680844699], r: [0,230.15623006366124] },
-			{ name: "wikk134", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#ffd700" }, theta: [0,-3.1374726420528556], r: [0,291.58668903341203] },
-			]
-			},
-			"lk3": {
-			distance: 97.5797717356308,
-			min_dec: 5.45472737918372,
-			max_dec: 5.45472737918372,
-			max_angle: 0.0,
-			data: [
-			{ name: "wikk051", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,86.70495771034537], r: [0,97.5797717356308] },
-			],
-			data2: [
-			{ name: "wikk051", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,5.45472737918372], r: [0,97.5797717356308] },
-			]
-			},
-			"lk4": {
-			distance: 439.81182539799784,
-			min_dec: -1.9356144364839902,
-			max_dec: 9.0482449558497,
-			max_angle: 18.88250061104435,
-			data: [
-			{ name: "wikk080", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,48.42293103796216], r: [0,137.45830077498667] },
-			{ name: "wikk079", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,29.540430426917784], r: [0,439.81182539799784] },
-			],
-			data2: [
-			{ name: "wikk080", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,9.0482449558497], r: [0,137.45830077498667] },
-			{ name: "wikk079", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,-1.9356144364839902], r: [0,439.81182539799784] },
-			]
-			},
-			"lk5": {
-			distance: 525.209911570841,
-			min_dec: -4.163624002360711,
-			max_dec: 9.150062524899717,
-			max_angle: 85.22780349163094,
-			data: [
-			{ name: "wikk107", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,1.5867512832258148], r: [0,38.71548302992649] },
-			{ name: "wikk190", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,19.533893938046596], r: [0,352.432758789961] },
-			{ name: "wikk144", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,86.81455477485673], r: [0,525.209911570841] },
-			],
-			data2: [
-			{ name: "wikk107", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,4.243615841648701], r: [0,38.71548302992649] },
-			{ name: "wikk190", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,9.150062524899717], r: [0,352.432758789961] },
-			{ name: "wikk144", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,-4.163624002360711], r: [0,525.209911570841] },
-			]
-			},
-			"lk6": {
-			distance: 488.32119473141546,
-			min_dec: -7.02869334440699,
-			max_dec: 11.680736499562455,
-			max_angle: 261.1550065873244,
-			data: [
-			{ name: "wikk160", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,341.3557510022509], r: [0,216.27316518049386] },
-			{ name: "wikk161", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,204.55124949956257], r: [0,140.76872909528927] },
-			{ name: "wikk118", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,303.39624291223816], r: [0,41.35977190734048] },
-			{ name: "wikk176", type: "scatterpolar", mode: "lines", line: { color: "#808000" }, theta: [0,352.77252431739464], r: [0,172.8821477097867] },
-			{ name: "wikk191", type: "scatterpolar", mode: "lines", line: { color: "#00008b" }, theta: [0,182.4270903535465], r: [0,106.71011424754928] },
-			{ name: "wikk109", type: "scatterpolar", mode: "lines", line: { color: "#ff0000" }, theta: [0,9.219485845330532], r: [0,34.8666244725739] },
-			{ name: "wikk131", type: "scatterpolar", mode: "lines", line: { color: "#ff8c00" }, theta: [0,130.48295037631155], r: [0,421.7953820168601] },
-			{ name: "wikk130", type: "scatterpolar", mode: "lines", line: { color: "#ffd700" }, theta: [0,116.6939193426257], r: [0,485.57885095803096] },
-			{ name: "wikk037", type: "scatterpolar", mode: "lines", line: { color: "#00ff7f" }, theta: [0,111.52790677383985], r: [0,475.47419075961017] },
-			{ name: "wikk183", type: "scatterpolar", mode: "lines", line: { color: "#4169e1" }, theta: [0,82.71044551380339], r: [0,488.32119473141546] },
-			],
-			data2: [
-			{ name: "wikk160", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,176.50734551491374], r: [0,216.27316518049386] },
-			{ name: "wikk161", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,174.22491981427683], r: [0,140.76872909528927] },
-			{ name: "wikk118", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,168.31926350043756], r: [0,41.35977190734048] },
-			{ name: "wikk176", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#808000" }, theta: [0,179.16399972772172], r: [0,172.8821477097867] },
-			{ name: "wikk191", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#00008b" }, theta: [0,178.05221990563325], r: [0,106.71011424754928] },
-			{ name: "wikk109", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#ff0000" }, theta: [0,3.990448483446348], r: [0,34.8666244725739] },
-			{ name: "wikk131", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#ff8c00" }, theta: [0,-5.762516369064081], r: [0,421.7953820168601] },
-			{ name: "wikk130", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#ffd700" }, theta: [0,-7.02869334440699], r: [0,485.57885095803096] },
-			{ name: "wikk037", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#00ff7f" }, theta: [0,-4.973168118643002], r: [0,475.47419075961017] },
-			{ name: "wikk183", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#4169e1" }, theta: [0,-3.609640744548233], r: [0,488.32119473141546] },
-			]
-			},
-			"oceanview": {
-			distance: 60.92737254277605,
-			min_dec: -4.007086111199672,
-			max_dec: -4.007086111199672,
-			max_angle: 0.0,
-			data: [
-			{ name: "wikk124", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,41.38449378114266], r: [0,60.92737254277605] },
-			],
-			data2: [
-			{ name: "wikk124", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,-4.007086111199672], r: [0,60.92737254277605] },
-			]
-			},
-			"oceanview2": {
-			distance: 2363.275826173069,
-			min_dec: 4.264680891053487,
-			max_dec: 13.40995135171131,
-			max_angle: 7.2815384911660885,
-			data: [
-			{ name: "wikk041", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,179.53719426129243], r: [0,1225.0151995188196] },
-			{ name: "wikk169", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,178.65277808704425], r: [0,1061.5789257684246] },
-			{ name: "wikk189", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,177.70214694479628], r: [0,1309.794250464212] },
-			{ name: "wikk168", type: "scatterpolar", mode: "lines", line: { color: "#808000" }, theta: [0,172.2556557701263], r: [0,2363.275826173069] },
-			],
-			data2: [
-			{ name: "wikk041", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,11.885669261529742], r: [0,1225.0151995188196] },
-			{ name: "wikk169", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,13.40995135171131], r: [0,1061.5789257684246] },
-			{ name: "wikk189", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,11.03369470851561], r: [0,1309.794250464212] },
-			{ name: "wikk168", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#808000" }, theta: [0,4.264680891053487], r: [0,2363.275826173069] },
-			]
-			},
-			"oceanview4": {
-			distance: 1850.0214529481273,
-			min_dec: 7.390575188690814,
-			max_dec: 10.315552866034682,
-			max_angle: 7.010007002876819,
-			data: [
-			{ name: "wikk181", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,185.18550640447353], r: [0,1850.0214529481273] },
-			{ name: "wikk094", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,184.63413162123115], r: [0,1445.644358534659] },
-			{ name: "wikk097", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,180.9239817945565], r: [0,1799.7018892946585] },
-			{ name: "wikk182", type: "scatterpolar", mode: "lines", line: { color: "#808000" }, theta: [0,180.6884133802349], r: [0,1416.3041269314638] },
-			{ name: "wikk158", type: "scatterpolar", mode: "lines", line: { color: "#00008b" }, theta: [0,179.98970393528674], r: [0,1528.75710500167] },
-			{ name: "wikk147", type: "scatterpolar", mode: "lines", line: { color: "#ff0000" }, theta: [0,179.8710285924587], r: [0,1489.2492327864545] },
-			{ name: "wikk186", type: "scatterpolar", mode: "lines", line: { color: "#ff8c00" }, theta: [0,178.1754994015967], r: [0,1406.046367484821] },
-			],
-			data2: [
-			{ name: "wikk181", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#7b68ee" }, theta: [0,172.6094248113092], r: [0,1850.0214529481273] },
-			{ name: "wikk094", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#a52a2a" }, theta: [0,170.45435393969214], r: [0,1445.644358534659] },
-			{ name: "wikk097", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#2e8b57" }, theta: [0,171.8339780142871], r: [0,1799.7018892946585] },
-			{ name: "wikk182", subplot: "polar", type: "scatterpolar", mode: "lines", line: { color: "#808000" }, theta: [0,169.6844471339653], r: [0,1416.3041269314638] },
-			{ name: "wikk158", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#00008b" }, theta: [0,9.564822021651063], r: [0,1528.75710500167] },
-			{ name: "wikk147", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#ff0000" }, theta: [0,9.814603837667182], r: [0,1489.2492327864545] },
-			{ name: "wikk186", subplot: "polar2", type: "scatterpolar", mode: "lines", line: { color: "#ff8c00" }, theta: [0,10.207773863368729], r: [0,1406.046367484821] },
-			]
+	<script>
+		var tower_data = {
+			"None": {
+				distance: 0,
+				min_dec: 0,
+				max_dec: 0,
+				max_angle: 0,
+				best_angle: 0,
+				data: [],
+				data2: []
 			}
 		};
-
-		var tower = "barn";
+		var tower = "None";
 
 		function graph(tower_name) {
 			var tower_label = document.getElementById("tower_name");
 			var data = tower_data[tower_name].data
 			var data2 = tower_data[tower_name].data2
 			var max_distance = Math.round(tower_data[tower_name].distance / 100.0) * 100
-			if(max_distance <= 0) { max_distance = 100; }
+			if (max_distance <= 0) {
+				max_distance = 100;
+			}
 			set_tower_values(tower_name)
 
 			tower_label.innerText = tower_name
 			tower = tower_name
+
+			// Reset all elements visibility to visible
+			for (var d in data) {
+				data[d].visible = true
+				data2[d].visible = true
+			}
 
 			layout = {
 				title: "Compass Bearing",
@@ -268,63 +47,21 @@
 						visible: true,
 						range: [0, max_distance]
 					},
-									angularaxis: {
-							tickfont: {
-								size: 8
-							},
-							rotation: 90,
-							direction: "clockwise"
-						}
+					angularaxis: {
+						tickfont: {
+							size: 8
+						},
+						rotation: 90,
+						direction: "clockwise"
+					}
 				},
 				showlegend: true
 			}
 
 			layout2 = {
-				polar: {
-					sector: [165,195],
-					domain: {
-						x: [0,0.5],
-						y: [0,1]
-					},
-					radialaxis: {
-						visible: true,
-						range: [0, max_distance]
-					},
-					angularaxis: {
-						tickfont: {
-							size: 8
-						},
-						rotation: 0,
-						direction: "clockwise"
-					}
-				},
-
-				polar2: {
-					title: "Declination",
-					sector: [-15,15],
-					domain: {
-						x: [0.5,1],
-						y: [0,1]
-					},
-					radialaxis: {
-						visible: true,
-						range: [0, max_distance]
-					},
-					angularaxis: {
-						tickfont: {
-							size: 8
-						},
-						rotation: 0,
-						direction: "clockwise"
-					}
-				},
-				showlegend: false
-			}
-
-			layout3 = {
 				title: "Declination",
-				polar2: {
-					sector: [-15,15],
+				polar: {
+					sector: [-15, 15],
 					radialaxis: {
 						visible: true,
 						range: [0, max_distance]
@@ -340,32 +77,13 @@
 				showlegend: true
 			}
 
-			Plotly.newPlot('myDiv1', data, layout, {doubleClickDelay: 700})
+			Plotly.newPlot('myDiv1', data, layout, {
+				doubleClickDelay: 700
+			})
 
-			var single_double = document.getElementById("single_double")
-			if(single_double.value == "single"){
-				Plotly.newPlot('myDiv2', data2, layout3, {doubleClickDelay: 700})
-			} else {
-				Plotly.newPlot('myDiv2', data2, layout2, {doubleClickDelay: 700})
-			}
-		}
-
-
-		function modify_site_declination(view) {
-			for (var t in tower_data ){
-				for(var d = 0; d < tower_data[t].data.length; d++) {
-					if( tower_data[t].data[d].theta[1] > 180 ){
-						if( view == "single" && tower_data[t].data2[d].theta[1] > 90 && tower_data[t].data2[d].theta[1] < 270 ){
-							tower_data[t].data2[d].theta[1] = 180 - tower_data[t].data2[d].theta[1];
-							tower_data[t].data2[d].subplot = "polar2";
-						} else if( view == "double" && ! (tower_data[t].data2[d].theta[1] > 90 && tower_data[t].data2[d].theta[1] < 270) ){
-							tower_data[t].data2[d].theta[1] = 180 - tower_data[t].data2[d].theta[1];
-							tower_data[t].data2[d].subplot = "polar";
-						}
-					}
-				}
-			}
-			graph(tower)
+			Plotly.newPlot('myDiv2', data2, layout2, {
+				doubleClickDelay: 700
+			})
 		}
 
 		function set_tower_values(tower_name) {
@@ -375,48 +93,65 @@
 			var min_dec = document.getElementById("min_dec");
 			var max_dec = document.getElementById("max_dec");
 
-			distance.innerText = Math.round(tower_data[tower_name].distance*10.0) / 10.0
-			spread.innerText = Math.round(tower_data[tower_name].max_angle*10.0) / 10.0
-			min_dec.innerText = Math.round(tower_data[tower_name].min_dec*10.0) / 10.0
-			max_dec.innerText = Math.round(tower_data[tower_name].max_dec*10.0) / 10.0
-			spread_dec.innerText = Math.round((tower_data[tower_name].max_dec - tower_data[tower_name].min_dec)*10.0) / 10.0
+			distance.innerText = Math.round(tower_data[tower_name].distance * 10.0) / 10.0
+			spread.innerText = Math.round(tower_data[tower_name].max_angle * 10.0) / 10.0
+			min_dec.innerText = Math.round(tower_data[tower_name].min_dec * 10.0) / 10.0
+			max_dec.innerText = Math.round(tower_data[tower_name].max_dec * 10.0) / 10.0
+			spread_dec.innerText = Math.round((tower_data[tower_name].max_dec - tower_data[tower_name].min_dec) * 10.0) / 10.0
 		}
 
 		function create_tower_select() {
 			var tower_select = document.getElementById("tower_select");
-			for (var t in tower_data ){
-				o = document.createElement("option");
-				o.text = t;
-				o.value = t;
-				tower_select.add(o);
+			for (var t in tower_data) {
+				if (t != 'None') {
+					o = document.createElement("option");
+					o.text = t;
+					o.value = t;
+					tower_select.add(o);
+				}
 			}
 			tower_select.value = tower
 		}
 
+		function init_tower(tower_site_data) {
+			if (tower_site_data != null) {
+				tower_data = tower_site_data
+				for (var t in tower_site_data) {
+					if (t != 'None') {
+						tower = t;
+						break;
+					}
+				}
+				create_tower_select();
+				graph(tower)
+			}
+		}
+
 		function init() {
 			var single_double = document.getElementById("single_double")
-			create_tower_select(tower)
-			modify_site_declination(single_double.value)
-      graph(tower)
+			wikk_web_auth.logged_in(true, "/admin/site_angles.html", "login_span", null)
+			wikk_site_angles.fetch_site_angles(init_tower)
 		}
-  </script>
+	</script>
 </head>
 
 
 <body onload="init();">
-	<h2 id="tower_name">LK6</h2>
-		<select id="tower_select" onchange="graph(this.value);"><option value="none">None</option></select>
-		<br>
-		<b>Max Distance:</b> <span id="distance"> </span>m <b>Spread:</b> <span id="spread"> </span>deg<br>
-		<b>Nb.</b> Click twice on a site_name, to see just that site. Again, to restore all sites<br>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Click Once on a site_name, to to remove just that site. Again, to restore the site<br>
-		<span width="75%" id="myDiv1"><!-- Plotly chart will be drawn inside this DIV --></span>
-    <p>
-		<select id="single_double" onchange="modify_site_declination(this.value);">
-			<option value="double">Double Declination</option>
-			<option value="single" selected="selected">Single Declination</option>
-		</select>
-		<br>
+	<h2 id="tower_name">None</h2>
+	<select id="tower_select" onchange="graph(this.value);">
+		<option value="None">None</option>
+	</select>
+	<span id="login_span"></span>
+	<br>
+	<b>Max Distance:</b> <span id="distance"> </span>m <b>Spread:</b> <span id="spread"> </span>deg<br>
+	<b>Nb.</b> Click twice on a site_name, to see just that site. Again, to restore all sites<br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Click Once on a site_name, to to remove just that site. Again, to restore the site<br>
+	<span width="75%" id="myDiv1">
+		<!-- Plotly chart will be drawn inside this DIV -->
+	</span>
+	<p>
 		<b>Spread:</b> <span id="spread_dec"></span>deg <b>Min Dec</b> <span id="min_dec"></span>deg <b>Max Dec</b> <span id="max_dec"></span>deg
-		<span width="75%" id="myDiv2"><!-- Plotly chart will be drawn inside this DIV --></span>
+		<span width="75%" id="myDiv2">
+			<!-- Plotly chart will be drawn inside this DIV -->
+		</span>
 </body>
