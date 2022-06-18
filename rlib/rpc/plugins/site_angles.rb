@@ -39,17 +39,18 @@ class Site_Angles < RPC
   end
 
   def fetch_sites
-    site_query = ~<SQL
-     SELECT c.site_name, c.latitude, c.longitude, c.height, d.site_name, d.latitude, d.longitude, d.height
-     FROM customer AS c, distribution AS d, customer_distribution
-     WHERE c.active = 1
-     AND c.cabled = 0
-     AND c.customer_id = customer_distribution.customer_id
-     AND customer_distribution.distribution_id = d.distribution_id
-     AND d.active = 1
-     ORDER BY d.site_name, c.longitude, c.latitude
+    site_query = <<~SQL
+      SELECT c.site_name, c.latitude, c.longitude, c.height, d.site_name, d.latitude, d.longitude, d.height
+      FROM customer AS c, distribution AS d, customer_distribution
+      WHERE c.active = 1
+      AND c.cabled = 0
+      AND c.customer_id = customer_distribution.customer_id
+      AND customer_distribution.distribution_id = d.distribution_id
+      AND d.active = 1
+      ORDER BY d.site_name, c.longitude, c.latitude
+    SQL
 
-    WIKK::SQL.connect(@config) do |sql|
+    WIKK::SQL.connect(@db_config) do |sql|
       sql.each_hash(site_query, true) do |row|
         elevation = lookup_elevation(lat: row['d.latitude'], long: row['d.longitude'])
         distribution_site = { site_name: row['d.site_name'], latitude: row['d.latitude'].to_f, longitude: row['d.longitude'].to_f, elevation: elevation + row['d.height'].to_f }
