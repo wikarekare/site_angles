@@ -1,4 +1,4 @@
-#!/usr/local/ruby3.0/bin/ruby
+#!/usr/local/bin/ruby
 
 # Calculation of angle to each site, from their distribution tower.
 # Generates json, suitable for inserting into site_angles.html tower_data {}.
@@ -17,15 +17,16 @@ def init
 end
 
 def fetch_sites
-  site_query = ~<SQL
-   SELECT c.site_name, c.latitude, c.longitude, c.height, d.site_name, d.latitude, d.longitude, d.height
-   FROM customer as c, distribution as d, customer_distribution
-   WHERE c.active = 1
-   AND c.cabled = 0
-   AND c.customer_id = customer_distribution.customer_id
-   AND customer_distribution.distribution_id = d.distribution_id
-   AND d.active = 1
-   ORDER BY d.site_name, c.longitude, c.latitude
+  site_query = <<~SQL
+    SELECT c.site_name, c.latitude, c.longitude, c.height, d.site_name, d.latitude, d.longitude, d.height
+    FROM customer as c, distribution as d, customer_distribution
+    WHERE c.active = 1
+    AND c.cabled = 0
+    AND c.customer_id = customer_distribution.customer_id
+    AND customer_distribution.distribution_id = d.distribution_id
+    AND d.active = 1
+    ORDER BY d.site_name, c.longitude, c.latitude
+  SQL
 
   WIKK::SQL.connect(@mysql_conf) do |sql|
     sql.each_hash(site_query, true) do |row|
