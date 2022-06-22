@@ -3,11 +3,12 @@
 # Calculation of angle to each site, from their distribution tower.
 # Generates json, suitable for inserting into site_angles.html tower_data {}.
 
+require 'vincenty'
 require 'wikk_sql'
 require 'wikk_configuration'
-load '/wikk/etc/wikk.conf'
-require '/wikk/rlib/linz/pointcloud.rb'
-require 'vincenty'
+RLIB = '/wikk/rlib'
+require_relative "#{RLIB}/wikk_conf.rb"
+require "#{RLIB}/linz/pointcloud.rb"
 
 # initialize stuff
 def init
