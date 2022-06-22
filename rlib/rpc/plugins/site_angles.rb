@@ -1,5 +1,7 @@
-require '/wikk/rlib/linz/pointcloud.rb'
+RLIB = '/wikk/rlib'
+
 require 'vincenty'
+require_relative "#{RLIB}/linz/pointcloud.rb"
 
 # Return angles from towers to sites.
 class Site_Angles < RPC
