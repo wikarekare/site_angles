@@ -1,6 +1,5 @@
-RLIB = '/wikk/rlib'
-
 require 'vincenty'
+RLIB = '/wikk/rlib' unless defined? RLIB
 require_relative "#{RLIB}/linz/pointcloud.rb"
 
 # Return angles from towers to sites.
