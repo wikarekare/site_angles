@@ -7,6 +7,7 @@ load '/wikk/etc/wikk.conf'
 require 'wikk_json'
 require 'wikk_webbrowser'
 
+# Make Test RPC call to the web server.
 class RPC
   def initialize(url:, identity: nil, auth: nil)
     @cookies = []
@@ -15,6 +16,7 @@ class RPC
     @auth = auth
   end
 
+  # Call the remote rpc service
   def self.rpc(url:, query:, identity: nil, auth: nil)
     WIKK::WebBrowser.https_session(host: 'www.wikarekare.org', verify_cert: false) do |ws|
       response = ws.post_page(query: url,
@@ -28,6 +30,7 @@ class RPC
   end
 end
 
+# Using the response from the remote server, print out the tower to client angles and distances
 def dump_site_angles
   begin
     r = RPC.rpc( query: { 'method' => 'Site_Angles.read',
