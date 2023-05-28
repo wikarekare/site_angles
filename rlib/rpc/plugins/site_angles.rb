@@ -42,7 +42,9 @@ class Site_Angles < RPC
   def fetch_sites
     site_query = <<~SQL
       SELECT c.site_name as 'c.site_name', c.latitude as 'c.latitude', c.longitude as 'c.longitude', c.height as 'c.height',
-             d.site_name as 'd.site_name', d.latitude as 'd.latitude', d.longitude as 'd.longitude', d.height as 'd.height'
+             c.tilt as 'c.tilt', c.azimuth as 'c.azimuth', c.antenna as 'c.antenna',
+             d.site_name as 'd.site_name', d.latitude as 'd.latitude', d.longitude as 'd.longitude', d.height as 'd.height',
+             d.tilt as 'd.tilt', d.azimuth as 'd.azimuth', d.antenna as 'd.antenna'
       FROM customer AS c, distribution AS d, customer_distribution
       WHERE c.active = 1
       AND c.cabled = 0
@@ -56,7 +58,15 @@ class Site_Angles < RPC
       sql.each_hash(site_query) do |row|
         elevation = lookup_elevation(lat: row['d.latitude'], long: row['d.longitude'])
         # warn("Site #{row['d.site_name']} Height = #{row['d.height']} elevation = #{elevation}")
-        distribution_site = { site_name: row['d.site_name'], latitude: row['d.latitude'].to_f, longitude: row['d.longitude'].to_f, elevation: elevation + row['d.height'].to_f }
+        distribution_site = {
+          site_name: row['d.site_name'],
+          latitude: row['d.latitude'].to_f,
+          longitude: row['d.longitude'].to_f,
+          elevation: elevation + row['d.height'].to_f,
+          antenna: row['d.antenna'],
+          tilt: row['d.tilt'],
+          azimuth: row['d.azimuth']
+        }
 
         elevation = lookup_elevation(lat: row['c.latitude'], long: row['c.longitude'])
         customer_site = { site_name: row['c.site_name'], latitude: row['c.latitude'].to_f, longitude: row['c.longitude'].to_f, elevation: elevation + row['c.height'].to_f }
@@ -160,6 +170,9 @@ class Site_Angles < RPC
         max_dec: v[:distribution_site][:max_declination],
         max_angle: v[:distribution_site][:spread],
         best_angle: v[:distribution_site][:best_compass_angle],
+        antenna: v[:distribution_site][:antenna],
+        tilt: v[:distribution_site][:tilt],
+        azimuth: v[:distribution_site][:azimuth],
         data: [],
         data2: []
       }
