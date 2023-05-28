@@ -1,0 +1,237 @@
+<head>
+	<!-- Load plotly.js into the DOM -->
+	<script src='https://cdn.plot.ly/plotly-2.8.3.min.js'></script>
+	<script src="/js/jquery-3.0.0.min.js"></script>
+	<script src="/js/wikk_ajax-min.js"></script>
+	<script src='/js/wikk_msi.js'></script>
+  <script>
+	  function graph(pattern) {
+			var v_azimuth = [];
+			var h_azimuth = [];
+			var v_elevation = [];
+			var h_elevation = [];
+			var theta_db = [];
+			var radius=-30;
+
+			function ratio(value, raduis) {
+				// 1DB is 1/30th the radius.
+				return radius/30.0 * -value;
+				// ARRL Log scale axis
+				//var compression=0.95;
+				//return radius * (1 - (compression ** (-value)));
+			}
+
+			function db_lines(markers, diameter, layout_name, color) {
+				var data = [];
+				for(var m in markers){
+					data[data.length] = {
+						name: markers[m] + 'deg',
+	          type: "scatterpolar",
+	          mode: "lines",
+	          line: { color: color , dash: 'dot' },
+	          theta: [ 0, markers[m] ],
+	          r: [ diameter, 0  ],
+						subplot: layout_name
+					}
+				}
+				return data;
+			}
+
+			antenna_direction = 0
+			antenna_declination = 0
+			// Convert antenna db table
+      for(var d = 0; d < 360; d++) {
+				theta_db = d;
+				az_skew = (d+antenna_direction)%360;
+				el_skew = (d+antenna_declination)%360;
+
+				if( pattern.polarization == 'horizontal' ) {
+					h_gain = pattern.horizontal.gain;
+					v_gain = -100;
+
+					h_azimuth[az_skew] = ratio(pattern.horizontal.azimuth[d], radius);
+					h_elevation[el_skew] = ratio(pattern.horizontal.elevation[d], radius);
+					v_azimuth[az_skew] = -100;
+					v_elevation[el_skew] = -100;
+
+					ratio_data_az_3db = db_lines(pattern.horizontal.azimuth_markers, radius, 'polar3', 'blue');
+					ratio_data_el_3db = db_lines(pattern.horizontal.elevation_markers, radius, 'polar4', 'green');
+				} else if(pattern.polarization == 'vertical') {
+					h_gain = -100;
+					v_gain = pattern.vertical.gain;
+					v_azimuth[az_skew] = ratio(pattern.vertical.azimuth[d], radius)
+					v_elevation[el_skew] = ratio(pattern.vertical.elevation[d], radius);
+					h_azimuth[az_skew] = -100;
+					h_elevation[el_skew] = -100;
+
+					ratio_data_az_3db = db_lines(pattern.vertical.azimuth_markers, radius, 'polar3', 'green');
+					ratio_data_el_3db = db_lines(pattern.vertical.elevation_markers, radius, 'polar4', 'green');
+				} else if( pattern.polarization == 'dual' ){
+					h_gain = pattern.horizontal.gain;
+					v_gain = pattern.vertical.gain;
+
+					h_azimuth[az_skew] = ratio(pattern.horizontal.azimuth[d], radius);
+					h_elevation[el_skew] = ratio(pattern.horizontal.elevation[d], radius);
+					v_azimuth[az_skew] = ratio(pattern.vertical.azimuth[d], radius)
+					v_elevation[el_skew] = ratio(pattern.vertical.elevation[d], radius);
+
+					ratio_data_az_3db = db_lines(pattern.vertical.azimuth_markers, radius, 'polar3', 'green').concat(db_lines(pattern.horizontal.azimuth_markers, radius, 'polar3', 'blue'));
+					ratio_data_el_3db = db_lines(pattern.vertical.elevation_markers, radius, 'polar4', 'green').concat(db_lines(pattern.horizontal.elevation_markers, radius, 'polar4', 'green'));
+				}
+
+      }
+
+			// Always draw both horizontal and vertical patterns
+			var ratio_trace1 = {
+				r: v_azimuth,
+				theta: theta_db,
+				mode: 'lines',
+				name: 'V Azimuth ' + v_gain + 'dbi',
+				line: {color: 'lightgreen'},
+				fill: "toself",
+				type: 'scatterpolar',
+				subplot: "polar3"
+			};
+
+			var ratio_trace2 = {
+				r: v_elevation,
+				theta: theta_db,
+				mode: 'lines',
+				name: 'V Elevation',
+				line: {color: 'lightgreen'},
+				fill: "toself",
+				//fillcolor: "lightgrey",
+				type: 'scatterpolar',
+				subplot: "polar4"
+			};
+
+			var ratio_trace3 = {
+				r: h_azimuth,
+				theta: theta_db,
+				mode: 'lines',
+				name: 'H Azimuth ' + h_gain + 'dbi',
+				line: {color: 'lightblue'},
+				fill: "toself",
+				type: 'scatterpolar',
+				subplot: "polar3"
+			};
+
+			var ratio_trace4 = {
+				r: h_elevation,
+				theta: theta_db,
+				mode: 'lines',
+				name: 'H Elevation',
+				line: {color: 'lightblue'},
+				fill: "toself",
+				//fillcolor: "lightgrey",
+				type: 'scatterpolar',
+				subplot: "polar4"
+			};
+
+      layout = {
+         title: pattern.name,
+				 polar3: {
+					 domain: {
+						 x: [0, 1],
+						 y: [0, 1]
+					 },
+   				radialaxis: {
+             visible: true,
+             range: [radius, 0]
+           },
+           angularaxis: {
+             tickfont: {
+               size: 8
+             },
+             rotation: 90,
+             direction: "clockwise"
+           }
+         },
+				 polar4: {
+					 domain: {
+						 x: [0, 1],
+						 y: [0, 1]
+					 },
+   				radialaxis: {
+             visible: true,
+             range: [radius, 0]
+           },
+           angularaxis: {
+             tickfont: {
+               size: 8
+             },
+             rotation: 0,
+             direction: "clockwise"
+           },
+         },
+
+         showlegend: true
+      }
+
+			var ratio_data1 = [ratio_trace1, ratio_trace3].concat(ratio_data_az_3db);
+			var ratio_data2 = [ratio_trace2, ratio_trace4].concat(ratio_data_el_3db);
+
+			Plotly.newPlot('span_2_1', ratio_data1, layout, {doubleClickDelay: 700});
+			Plotly.newPlot('span_2_2', ratio_data2, layout, {doubleClickDelay: 700});
+    }
+
+		function antenna_select(antenna) {
+			var select_id = document.getElementById("antenna");
+        for(var a in antenna) {
+        var option = document.createElement("option");
+        option.value = antenna[a] ;
+        option.text = antenna[a] ;
+        select_id.appendChild(option);
+        }
+		}
+
+		function antenna_completion(data) {
+			if( data != null ) {
+				// There be antenna
+				antenna_select(data);
+				get_pattern(data[0]);
+			} else {
+				alert('No antenna patterns available');
+			}
+		}
+
+		function get_antenna() {
+			wikk_msi.list_antenna(antenna_completion);
+		}
+
+		function get_pattern_completion(data) {
+			if( data != null ) {
+				graph(data);
+			} else {
+				alert("No pattern");
+			}
+		}
+
+		function get_pattern(antenna) {
+			wikk_msi.fetch_msi(antenna, get_pattern_completion)
+		}
+
+		function redraw(antenna) {
+			get_pattern(antenna);
+		}
+
+		function init() {
+			get_antenna();
+		}
+  </script>
+</head>
+
+
+<body onload="init();">
+	<select id='antenna' onchange='redraw(this.value);'>
+	</select>
+	<div width="75%" id="myDiv1">
+		<table><tr><td id="span_1_1"></td><td id="span_2_1"></td></tr></table>
+    <!-- Plotly chart will be drawn inside this DIV -->
+  </div>
+	<div width="75%" id="myDiv2">
+    <!-- Plotly chart will be drawn inside this DIV -->
+		<table><tr><td id="span_1_2"></td><td id="span_2_2"></td></tr></table>
+  </div>
+</body>
+</html>
