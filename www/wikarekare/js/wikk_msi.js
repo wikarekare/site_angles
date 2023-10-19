@@ -30,13 +30,14 @@ var wikk_msi = ( function() {
 
     var args = {
       "method": "Antenna_msi.read",
-      "kwparams": {
+      "params": {
         "select_on": { antenna: antenna },         // Default select to get all
         "orderby": null,
         "set": null,
         "result": [ ]             // Accept what is sent
       },
-      "version": 1.1
+      "id": Date.getTime(),
+      "jsonrpc": 2.0
     }
 
     url = "/ruby/rpc.rbx"
@@ -73,13 +74,14 @@ var wikk_msi = ( function() {
 
     var args = {
       "method": "Antenna_msi.antenna",
-      "kwparams": {
+      "params": {
         "select_on": { },
         "orderby": null,
         "set": null,
         "result": [ ]             // Accept what is sent
       },
-      "version": 1.1
+      "id": Date.getTime(),
+      "jsonrpc": 2.0
     }
 
     url = "/ruby/rpc.rbx"

@@ -31,13 +31,14 @@ var wikk_site_angles = ( function() {
 
     var args = {
       "method": "Site_Angles.read",
-      "kwparams": {
+      "params": {
         "select_on": { },         // Default select to get all
         "orderby": null,
         "set": null,
         "result": [ ]             // Accept what is sent
       },
-      "version": 1.1
+      "id": Date.getTime(),
+      "jsonrpc": 2.0
     }
 
     url = "/ruby/rpc.rbx"
