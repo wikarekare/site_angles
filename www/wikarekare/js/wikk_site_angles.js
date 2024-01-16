@@ -37,11 +37,11 @@ var wikk_site_angles = ( function() {
         "set": null,
         "result": [ ]             // Accept what is sent
       },
-      "id": Date.getTime(),
+      "id": new Date().getTime(),
       "jsonrpc": 2.0
     }
 
-    url = RPC
+    url = RPC_URL
     wikk_ajax.delayed_ajax_post_call(url, args, site_angles_callback, site_angles_error, site_angles_completion, 'json', true, delay);
     return false;
   }

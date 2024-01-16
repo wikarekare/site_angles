@@ -28,8 +28,8 @@ class Site_Angles < RPC
     { name: 'lightskyblue', code:  '#87cefa' }
   ]
 
-  def initialize(cgi, authenticated = false)
-    super(cgi, authenticated)
+  def initialize(cgi:, authenticated: false)
+    super(cgi: cgi, authenticated: authenticated)
     @select_acl = []
     @result_acl = []
     @set_acl = []

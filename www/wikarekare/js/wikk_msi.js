@@ -36,11 +36,11 @@ var wikk_msi = ( function() {
         "set": null,
         "result": [ ]             // Accept what is sent
       },
-      "id": Date.getTime(),
+      "id": new Date().getTime(),
       "jsonrpc": 2.0
     }
 
-    url = RPC
+    url = RPC_URL
     wikk_ajax.delayed_ajax_post_call(url, args, fetch_msi_callback, fetch_msi_error, fetch_msi_completion, 'json', true, delay);
     return false;
   }
@@ -80,11 +80,11 @@ var wikk_msi = ( function() {
         "set": null,
         "result": [ ]             // Accept what is sent
       },
-      "id": Date.getTime(),
+      "id": new Date().getTime(),
       "jsonrpc": 2.0
     }
 
-    url = RPC
+    url = RPC_URL
     wikk_ajax.delayed_ajax_post_call(url, args, list_antenna_callback, list_antenna_error, list_antenna_completion, 'json', true, delay);
     return false;
   }

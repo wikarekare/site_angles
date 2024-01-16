@@ -1,7 +1,7 @@
 # Return Json formatted Antenna MSI files
 class Antenna_msi < RPC
-  def initialize(cgi, authenticated = false)
-    super(cgi, authenticated)
+  def initialize(cgi:, authenticated: false)
+    super(cgi: cgi, authenticated: authenticated)
     @select_acl = []
     @result_acl = []
     @set_acl = []

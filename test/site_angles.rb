@@ -8,7 +8,7 @@ require 'wikk_json'
 require 'wikk_webbrowser'
 
 # Make Test RPC call to the web server.
-class RPC
+class REMOTE_RPC
   def initialize(url:, identity: nil, auth: nil)
     @cookies = []
     @url = url
@@ -33,17 +33,17 @@ end
 # Using the response from the remote server, print out the tower to client angles and distances
 def dump_site_angles
   begin
-    r = RPC.rpc( query: { 'method' => 'Site_Angles.read',
-                          'kwparams' => {
-                            'select_on' => {},
-                            'set' => {},
-                            'result' => []
-                          },
-                          'id' => "#{Time.now.to_i}",
-                          'version' => '1.1'
+    r = REMOTE_RPC.rpc( query: { 'method' => 'Site_Angles.read',
+                                 'kwparams' => {
+                                   'select_on' => {},
+                                   'set' => {},
+                                   'result' => []
+                                 },
+                                 'id' => "#{Time.now.to_i}",
+                                 'version' => '1.1'
                         },
-                 url: 'ruby/rpc.rbx'
-               )
+                        url: 'ruby/rpc.rbx'
+                      )
     return if r.nil?
 
     puts '{'
