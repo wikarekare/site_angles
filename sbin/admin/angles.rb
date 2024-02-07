@@ -6,8 +6,10 @@
 require 'vincenty'
 require 'wikk_sql'
 require 'wikk_configuration'
-RLIB = '/wikk/rlib' unless defined? RLIB
-require_relative "#{RLIB}/wikk_conf.rb"
+
+unless defined? WIKK_CONF
+  load '/wikk/etc/wikk.conf'
+end
 require "#{RLIB}/linz/pointcloud.rb"
 
 # initialize stuff
