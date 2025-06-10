@@ -3,7 +3,7 @@
 
 # Test of Fetch of the site_angles from the WIKK RPC server.
 
-load '/wikk/etc/wikk.conf'
+load '/wikk/etc/wikk.conf' unless defined? WIKK_CONF
 require 'wikk_json'
 require 'wikk_webbrowser'
 

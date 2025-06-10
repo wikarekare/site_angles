@@ -7,9 +7,7 @@ require 'vincenty'
 require 'wikk_sql'
 require 'wikk_configuration'
 
-unless defined? WIKK_CONF
-  load '/wikk/etc/wikk.conf'
-end
+load '/wikk/etc/wikk.conf' unless defined? WIKK_CONF
 require "#{RLIB}/linz/pointcloud.rb"
 
 # initialize stuff
